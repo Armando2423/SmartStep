@@ -1,0 +1,103 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+  
+#ingreso-contenedor {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+}
+
+.menu-lateral {
+  width: 20%;
+  background-color: #333;
+  padding: 5px;
+  flex-direction: column;
+  align-items: center;
+  z-index: 0;
+}
+
+#logo-contenedor {
+  width: 100%;
+  height: 20vh;
+  background-image: url('./assets/SmartStep-logo.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+.menu-btn {
+  padding: 20px;
+  width: 100%;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.menu-btn:hover {
+  background-color: #0af;
+}
+.ingreso-contenido {
+  flex-grow: 1;
+  padding: 3em;
+  background-color: #f0f0f0;
+}
+
+#perfil-container {
+  margin: 0 auto;
+  padding: 0;
+  width: 85%;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: 10px 0 10px rgba(0, 0, 0, 0.3), -10px 0 10px rgba(0, 0, 0, 0.3);
+}
+.perfil-input {
+  position: relative;
+  margin: 20px 0;
+}
+
+.perfil-input input {
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 10px;
+  width: 100%;
+  font-size: 16px;
+  background: transparent;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-bottom 0.5s ease
+}
+.perfil-input input:focus{
+  border-bottom: 2px solid #0af;
+}
+.perfil-input label {
+  position: absolute;
+  left: 10px;
+  top: 18px;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  color: #666;
+  font-size: 16px;
+  background: white;
+  padding: 0 4px;
+  transform: translateY(0);
+}
+
+.perfil-input input:focus + label,
+.perfil-input input:valid + label {
+  top: -5px; /* Ajusta esta distancia para que quede justo en el borde superior */
+  left: 10px;
+  font-size: 14px;
+  color: #000; /* Cambia el color si lo deseas */
+  transform: translateY(0); /* Asegura que la etiqueta se mantenga en su posición final */
+}
+
+
+

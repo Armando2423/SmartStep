@@ -1,0 +1,122 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.admin-background {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: linear-gradient(0deg, #141414,#4b4b4b,#141414);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  justify-content: center;
+  align-content: center;
+}
+
+.admin-container {
+  margin: auto;
+  width: 45vw;
+  height: 60vh;
+  background-color: #fff;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5vw;
+}
+
+.input-group-text {
+  background-color: #efefef;
+  border: 1px solid #ddd;
+  border-radius: 0.1vw;
+  padding: 0.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group-text i {
+  color: #282828;
+}
+
+.admin-input {
+  flex: 1;
+  background-color: #efefef;
+  border: 1px solid #ddd;
+  border-radius: 0.1vw;
+  padding: 0.5vw;
+  font-size: 1rem;
+}
+
+.admin-input:focus {
+  outline: none;
+}
+
+.reset-background {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(0deg, #141414,#4b4b4b,#141414);
+  align-content: center;
+}
+
+.request-container {
+  margin: auto;
+  width: 45vw;
+  height: 40vh;
+  background-color: #fff;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.reset-container {
+  margin: auto;
+  width: 45vw;
+  height: 50vh;
+  background-color: #fff;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+}
+.txt-blue {
+  color: #0af;
+}
+
+.btn-group {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn-reset {
+  width: 45%;
+  padding: 5px;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-aceptar {
+  background-color: #0af;
+  color: white;
+}
+
+.btn-aceptar:hover {
+  background-color: #009ae7;
+}
+
+.btn-cancelar {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-cancelar:hover {
+  background-color: #5a6268;
+}

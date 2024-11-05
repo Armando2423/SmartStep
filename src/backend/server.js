@@ -2,10 +2,15 @@
 require('dotenv').config();
 
 const express = require('express');
+const crypto = require('crypto');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const backupRoutes = require('./backupRoutes'); // Importar las rutas de respaldo
+
+const algorithm = 'aes-256-cbc';
+const secretKey = process.env.SECRET_KEY; // Clave secreta de 32 bytes (256 bits)
+const iv = crypto.randomBytes(16) // Vector de inicialización de 16 bytes
 
 // Crear la aplicación Express
 const app = express();
@@ -39,48 +44,25 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 // Función para cifrar la contraseña con el método de cifrado César
+// Función para cifrar la contraseña con AES
 function encryptPassword(password) {
-  const shift = 5;
-  let encrypted = '';
-
-  for (let i = 0; i < password.length; i++) {
-    let charCode = password.charCodeAt(i);
-
-    if (charCode >= 65 && charCode <= 90) {
-      // Uppercase letters
-      charCode = ((charCode - 65 + shift) % 26) + 65;
-    } else if (charCode >= 97 && charCode <= 122) {
-      // Lowercase letters
-      charCode = ((charCode - 97 + shift) % 26) + 97;
-    }
-
-    encrypted += String.fromCharCode(charCode);
-  }
-
-  return encrypted;
+  const cipher = crypto.createCipheriv(algorithm, Buffer.from(secretKey, 'hex'), iv);
+  let encrypted = cipher.update(password, 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  return `${iv.toString('hex')}:${encrypted}`; // Guardamos el IV junto al mensaje cifrado
 }
 
 // Función para descifrar la contraseña cifrada con el método de cifrado César
+// Función para descifrar la contraseña con AES
 function decryptPassword(encryptedPassword) {
-  const shift = 5;
-  let decrypted = '';
-
-  for (let i = 0; i < encryptedPassword.length; i++) {
-    let charCode = encryptedPassword.charCodeAt(i);
-
-    if (charCode >= 65 && charCode <= 90) {
-      // Uppercase letters
-      charCode = ((charCode - 65 - shift + 26) % 26) + 65;
-    } else if (charCode >= 97 && charCode <= 122) {
-      // Lowercase letters
-      charCode = ((charCode - 97 - shift + 26) % 26) + 97;
-    }
-
-    decrypted += String.fromCharCode(charCode);
-  }
-
+  const [ivHex, encryptedText] = encryptedPassword.split(':');
+  const decipher = crypto.createDecipheriv(algorithm, Buffer.from(secretKey, 'hex'), Buffer.from(ivHex, 'hex'));
+  let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
   return decrypted;
 }
+
+
 //register
 app.post('/register', async (req, res) => {
   const { nombre, apellido, email, password } = req.body;
@@ -216,7 +198,7 @@ app.post('/reset-password', async (req, res) => {
   if (!email || !newPassword) {
     return res.status(400).json({ message: 'Correo electrónico y nueva contraseña son requeridos' });
   }
-
+  
   try {
     const encryptedPassword = encryptPassword(newPassword); // Cifrar la nueva contraseña
 
